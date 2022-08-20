@@ -18,6 +18,11 @@ class node{
 
     }
 };
+void insert(node *&tail, int val, int pos){
+
+    
+}
+
 
  
  

@@ -1,6 +1,5 @@
-
-
-#include <iostream>
+#include "bits/stdc++.h"
+#define max 99999999
 using namespace std;
 
 class node
@@ -8,29 +7,148 @@ class node
 public:
     int data;
     node *next;
+
     node(int Data)
     {
         data = Data;
         next = NULL;
     }
 };
-void display(node *head)
+int length(node *head);
+int position(node *head, int val);
+int value(node *head, int pos);
+void insert(node *&head, int val, int pos = max);
+void delet(node *&head, int pos = max);
+void del_value(node*&head,int val);
+node* reverse(node*head);
+
+
+
+
+
+
+
+
+void insert(node *&head, int val, int pos )
 {
-    node *ptr;
-    ptr = head;
-    while (ptr != NULL)
+
+    if (pos >= length(head) + 1)
     {
-        cout << ptr->data << " ";
-        ptr = ptr->next;
+        pos = length(head) + 1;
     }
-    cout << endl;
+
+    node *n = new node(val);
+if(head==NULL)
+    {
+        head = n;
+    }
+    else
+    {
+        if (pos == 1)
+        {
+
+            n->next = head;
+            head = n;
+        }
+        else
+        {
+            node *temp = head;
+            int temppos = 1;
+            while (temppos != pos - 1)
+            {
+                temp = temp->next;
+                temppos++;
+            }
+            node *saver = temp->next;
+            temp->next = n;
+            n->next = saver;
+        }
+    }
+}   
+ 
+
+void delet(node *&head, int pos )
+{
+    if (head == NULL)
+    {
+        return;
+    }
+    cout<<pos<<"\n";
+
+    if (pos >=length(head))
+    {
+        pos = length(head);
+    }
+    if (pos == 1)
+    {
+        // del_head(head)
+        node *v = head;
+        head = head->next;
+        delete v;
+    }
+    else
+    {
+        node *temp = head;
+        int temppos = 1;
+        while (temppos != pos - 1)
+        {
+            temp = temp->next;
+            temppos++;
+        }
+        node *v = temp->next;
+        temp->next = temp->next->next;
+        delete v;
+    }
 }
+void del_value(node*&head,int val){
+    int ps=position(head,val);
+    if (ps!=-1)delet(head,ps);
+}
+node* reverse(node*head){
+    node*rev =NULL;
+    node* temp=head;
+    while(temp){
+        insert(rev,temp->data,1);
+        temp=temp->next;
+    }
+    return rev;
+}
+
+int value(node *head, int pos)
+{
+    node *temp = head;
+    int temppos = 1;
+    while (temppos != pos)
+    {
+        temppos++;
+        temp = temp->next;
+    }
+    return temp->data;
+}
+
+int position(node *head, int val)
+{
+
+    node *temp = head;
+    int pos = 1;
+    while (temp)
+    {
+        if (val == temp->data)
+        {
+            return pos;
+        }
+        pos++;
+        temp = temp->next;
+    }
+    return -1;
+}
+
 int length(node *head)
 {
-    node *ptr;
-    ptr = head;
+    node *ptr = head;
+    // ptr = head;
     int count = 0;
-    while (ptr != NULL)
+    while (ptr)
     {
         // cout << ptr->data << " ";
         count++;
@@ -38,177 +156,39 @@ int length(node *head)
     }
     return count;
 }
-int valueat(node* head,int pos){
-    node* temp=head;
-    int i=1;
-    while (i!=pos){i++;temp=temp->next;}
-    return temp->data;
-}
-int findpos(node* head,int val){
 
-    node* temp=head;
-    int pos=1;
-    while(val!=temp->data){
-        pos++;
-        temp=temp->next;
-    }
-    return pos;
-}
-
-
-
-
-void insert_at_begin(node *&head, int val)
+void display(node *head)
 {
-
-    node *n = new node(val);
-
-    if (head == NULL)
+    node *ptr = head;
+    // ptr = head;
+    while (ptr != NULL)
     {
-        head = n;
+        cout << ptr->data << " ";
+        ptr = ptr->next;
     }
-    else
-    {
-        n->next = head;
-        head = n;
-       
-    }
+    cout << endl;
 }
-
-void insert_at_end(node *head, int val)
-{
-    node *n = new node(val);
-    if (head == NULL)
-    {
-        head = n;
-    }
-    else
-    {
-        node *ptr = head;
-        while (ptr->next != NULL)
-        {
-            ptr = ptr->next;
-        }
-        ptr->next = n;
-    }
-}
-
-void del_head(node *&head)
-{
-    node *v = head->next;
-    head = head->next;
-    delete v;
-}
-void add_at_pos(node *&head, int pos, int val)
-{
-    node *ne = new node(val);
-    if (pos == 1)
-    {
-        insert_at_begin(head, pos);
-    }
-    else if (pos == (length(head) + 1))
-    {
-        insert_at_end(head, val);
-    }
-    else
-    {
-        node *temp = head;
-        int i = 1;
-        while (i != pos - 1)
-        {
-            temp = temp->next;
-            i++;
-        }
-        node *saver = temp->next;
-        temp->next = ne;
-        ne->next = saver;
-    }
-}
-
-void del_at(node *&head, int pos)
-{
-    if (pos == 1)
-    {
-        // del_head(head);
-        node *v = head->next;
-        head = head->next;
-        delete v;
-    }
-    else
-    {
-        node *temp = head;
-        int i = 1;
-        while (i != pos - 1)
-        {
-            temp = temp->next;
-            i++;
-        }
-        node *v = temp->next;
-        temp->next = temp->next->next;
-        delete v;
-    }
-}
-
-void del_by_val(node *&head, int val)
-
-{
-    if (head == NULL)
-    {
-        return;
-    }
-    if (head->next == NULL)
-    {
-        del_head(head);
-    }
-    if (val == head->data)
-    { // del_head(head);
-        node *v = head;
-        head = head->next;
-        delete v;
-    }
-
-    else
-    {
-
-        node *temp = head;
-        while (temp->next->data != val)
-        {
-            temp = temp->next;
-        }
-        node *v = temp->next;
-        temp->next = temp->next->next;
-        delete v;
-    }
-}
-
-
 
 int main()
 {
-    node *head = new node(89);
-    insert_at_end(head, 90);
-    insert_at_end(head, 91);
-    insert_at_end(head, 92);
-    insert_at_end(head, 93);
+    node *head = NULL;
+    insert(head, 9);
+    insert(head, 10);
+    insert(head, 11);
+    insert(head, 12);
+    insert(head, 14);
     display(head);
 
-    insert_at_begin(head, 8);
+    insert(head, 78, 7);
     display(head);
-
-    del_at(head, 2);
+    delet(head);
+    // del_value(head,78);
+    cout<<position(head,78)<<"\n";
+    // delet(head,position(head,78));
     display(head);
-
-    del_by_val(head, 8);
-    display(head);
-    
-    add_at_pos(head, 2, 56);
-    display(head);
-
-
-   cout<< findpos(head,56)<<endl;
-   cout<< valueat(head,2)<<endl;
-
-
+    node *head1 = NULL;
+    head1=reverse(head);
+    display(head1);
 
 
     return 0;
