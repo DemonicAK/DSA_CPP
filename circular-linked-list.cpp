@@ -81,22 +81,22 @@ int flag=1;
     }
 
 }
-// node *reverse(node *tail)
-// {
-//     node *ptr = tail;
-//     node*neew;
-//     // ptr = tail;
-//     do
-//     {
-//         ptr = ptr->next;
-//         insert(neew,ptr->data,1);
-//         // cout << ptr->data << " ";
-//         // ptr = ptr->next;
-//     } while (ptr != tail);
+node *reverse(node *tail)
+{
+    node *ptr = tail;
+    node*neew;
+    // ptr = tail;
+    do
+    {
+        ptr = ptr->next;
+        insert(neew,ptr->data,1);
+        // cout << ptr->data << " ";
+        // ptr = ptr->next;
+    } while (ptr != tail);
 
-//     // cout << endl;
-//     return neew;
-// }
+    // cout << endl;
+    return neew;
+}
 
 int length(node *tail)
 {
