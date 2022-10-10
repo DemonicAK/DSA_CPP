@@ -19,17 +19,10 @@ int position(node *head, int val);
 int value(node *head, int pos);
 void insert(node *&head, int val, int pos = max);
 void delet(node *&head, int pos = max);
-void del_value(node*&head,int val);
-node* reverse(node*head);
+void del_value(node *&head, int val);
+node *reverse(node *head);
 
-
-
-
-
-
-
-
-void insert(node *&head, int val, int pos )
+void insert(node *&head, int val, int pos)
 {
 
     if (pos >= length(head) + 1)
@@ -38,7 +31,7 @@ void insert(node *&head, int val, int pos )
     }
 
     node *n = new node(val);
-if(head==NULL)
+    if (head == NULL)
     {
         head = n;
     }
@@ -64,18 +57,17 @@ if(head==NULL)
             n->next = saver;
         }
     }
-}   
- 
+}
 
-void delet(node *&head, int pos )
+void delet(node *&head, int pos)
 {
     if (head == NULL)
     {
         return;
     }
-    cout<<pos<<"\n";
+    cout << pos << "\n";
 
-    if (pos >=length(head))
+    if (pos >= length(head))
     {
         pos = length(head);
     }
@@ -100,16 +92,20 @@ void delet(node *&head, int pos )
         delete v;
     }
 }
-void del_value(node*&head,int val){
-    int ps=position(head,val);
-    if (ps!=-1)delet(head,ps);
+void del_value(node *&head, int val)
+{
+    int ps = position(head, val);
+    if (ps != -1)
+        delet(head, ps);
 }
-node* reverse(node*head){
-    node*rev =NULL;
-    node* temp=head;
-    while(temp){
-        insert(rev,temp->data,1);
-        temp=temp->next;
+node *reverse(node *head)
+{
+    node *rev = NULL;
+    node *temp = head;
+    while (temp)
+    {
+        insert(rev, temp->data, 1);
+        temp = temp->next;
     }
     return rev;
 }
@@ -157,6 +153,25 @@ int length(node *head)
     return count;
 }
 
+node *reverse1(node *head)
+{
+    node *current= head;
+    node *nxt = NULL;
+    node *pre = NULL;
+
+    while (current)
+    {
+        nxt = current->next; // setting as processing will loss its refrence
+        current->next = pre;  // changing the pointing node
+        pre = current;  // reseeting the head
+
+        current= nxt;    // moving forward
+
+       
+    }
+    return pre;
+}
+
 void display(node *head)
 {
     node *ptr = head;
@@ -183,13 +198,15 @@ int main()
     display(head);
     delet(head);
     // del_value(head,78);
-    cout<<position(head,78)<<"\n";
+    cout << position(head, 78) << "\n";
     // delet(head,position(head,78));
     display(head);
-    node *head1 = NULL;
-    head1=reverse(head);
-    display(head1);
 
+
+
+    node *head1 = NULL;
+    head1 = reverse1(head);
+    display(head1);
 
     return 0;
 }

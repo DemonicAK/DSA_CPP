@@ -190,6 +190,8 @@ int length(node *head)
     return count;
 }
 
+
+
 void display(node *head)
 {
     node *ptr=head;
