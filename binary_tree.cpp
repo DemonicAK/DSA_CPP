@@ -46,7 +46,10 @@ void postorder(struct node *temp) {
 
 }
 
+void toporder(struct node * temp){
 
+
+}
 
 
 
