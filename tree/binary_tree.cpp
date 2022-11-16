@@ -35,6 +35,11 @@ public:
   }
 };
 
+
+/*
+it is DFS traversal
+*/
+
 // preorder traversal
 void preorder(struct node *temp)
 {
@@ -70,6 +75,9 @@ void postorder(struct node *temp)
   }
 }
 
+
+
+
 // height of tree
 int height(node *root)
 {
@@ -81,6 +89,10 @@ int height(node *root)
   int rheight = height(root->right);
   return max(lheight, rheight) + 1;
 }
+
+/*
+from here BFS traversal starts
+*/
 
 // level order traversal
 void levelorder(node *root)
@@ -113,7 +125,7 @@ void levelorder(node *root)
         q.push(n->right);
       }
     }
-   
+
     else if (!q.empty())
     {
       cout << "\n"; // it tells that the level is over
@@ -122,28 +134,20 @@ void levelorder(node *root)
   }
 }
 
-//level order traversal of paerticular level
+// level order traversal of paerticular level
 void levelordertraversal(node *root, int k)
 {
   if (root == NULL)
   {
-	return;
+    return;
   }
   if (k == 1)
   {
-	cout << root->data << " ";
+    cout << root->data << " ";
   }
   levelordertraversal(root->left, k - 1);
   levelordertraversal(root->right, k - 1);
 }
-
-
-
-
-
-
-
-
 
 /*
 
@@ -178,6 +182,11 @@ int main()
   // node value 8
   root->right->left->left = new node(4);
   root->right->left->right = new node(6);
+
+
+
+
+
 
   cout << "preorder traversal" << endl;
   preorder(root);
