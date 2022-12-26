@@ -35,7 +35,6 @@ public:
   }
 };
 
-
 /*
 it is DFS traversal
 */
@@ -74,9 +73,6 @@ void postorder(struct node *temp)
     cout << " " << temp->data;
   }
 }
-
-
-
 
 // height of tree
 int height(node *root)
@@ -135,7 +131,7 @@ void levelorder(node *root)
 }
 
 // level order traversal of paerticular level
-void levelordertraversal(node *root, int k)
+void level_traversal(node *root, int k)
 {
   if (root == NULL)
   {
@@ -145,9 +141,58 @@ void levelordertraversal(node *root, int k)
   {
     cout << root->data << " ";
   }
-  levelordertraversal(root->left, k - 1);
-  levelordertraversal(root->right, k - 1);
+  level_traversal(root->left, k - 1);
+  level_traversal(root->right, k - 1);
 }
+
+
+
+//left view
+
+void leftview_util(node* root,int level,int* maxlevel){
+
+if(!root) return;
+
+
+if (*maxlevel<level){
+cout<<root->data<<" ";
+*maxlevel=level;
+}
+leftview_util(root->left,level+1,maxlevel);
+leftview_util(root->right,level+1,maxlevel);
+
+
+}
+
+
+void leftview(node* root){
+
+int maxlevel=0;
+leftview_util(root,0,&maxlevel);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 
@@ -183,11 +228,6 @@ int main()
   root->right->left->left = new node(4);
   root->right->left->right = new node(6);
 
-
-
-
-
-
   cout << "preorder traversal" << endl;
   preorder(root);
   cout << "\n";
@@ -202,6 +242,11 @@ int main()
 
   cout << "levelorder traversal" << endl;
   levelorder(root);
+  cout << "\n";
+
+
+  cout << "left view" << endl;
+  leftview(root);
   cout << "\n";
 
   cout << "height of tree"
