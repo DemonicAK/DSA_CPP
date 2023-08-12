@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Given an array of integers A, of size N, and an integer K, print the first negative integer from every window of size K in the array A. If no negative integer is present in the window, print 0.
+
 vector<long long> printFirstNegativeInteger(long long int A[],
                                             long long int N, long long int K)
 {
