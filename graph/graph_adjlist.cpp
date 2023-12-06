@@ -43,6 +43,18 @@ public:
     }
 };
 
+vector<vector<int>> makeadj(int V, vector<vector<int>> edges, bool direction = 0)
+{
+    vector<vector<int>> adj(V);
+    for (auto edge : edges)
+    {
+        adj[edge[0]].push_back(edge[1]);
+        if (!direction)
+            adj[edge[1]].push_back(edge[0]); // undirected graph
+    }
+    return adj;
+}
+
 int main()
 {
     int n, m;
@@ -58,7 +70,6 @@ int main()
 
     graph<int> g;
 
-  
     cout << "Enter the edges : " << endl;
 
     for (int i = 0; i < m; i++)
