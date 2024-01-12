@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 int binarysearch(int arr[], int size, int key)
@@ -29,52 +29,41 @@ vector<int> find(int arr[], int n, int x)
     // code here
 
     int index = binarysearch(arr, n, x);
-// cout<<index<<endl;
+    // cout<<index<<endl;
     // for first occurenece
-    int first = index-1;
+    int first = index - 1;
     while (arr[first] == x)
     {
-        first -=1;
+        first -= 1;
         // cout<<first<<endl;
     }
-    int last = index+1;
+    int last = index + 1;
     while (arr[last] == x)
     {
         last += 1;
     }
 
     vector<int> ans;
-    ans.push_back(first+1);
-    ans.push_back(last-1);
+    ans.push_back(first + 1);
+    ans.push_back(last - 1);
 
     return ans;
-
 }
 
 int main()
 {
- 
- 
- int arr[] = {1, 3, 5, 5, 5, 5,67, 123, 125};
-    int n= 9;
+
+    int arr[] = {1, 3, 5, 5, 5, 5, 67, 123, 125};
+    int n = 9;
     int x = 5;
     vector<int> ans = find(arr, n, x);
-    cout << ans[0] << " " << ans[1] << endl;
- 
- 
- 
- 
- 
- 
- 
- 
- 
- return 0;
+    cout << "initial:" << ans[0] << " "
+         << "final:" << ans[1] << endl;
+
+    return 0;
 }
 
-
-
-//better solutuion
+// better solutuion
 
 // int start = 0, end = n - 1;
 // while (start <= end)
