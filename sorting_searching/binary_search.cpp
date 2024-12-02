@@ -3,99 +3,134 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int binarysearch(vector<int> arr, int key)
+int binarysearch(int arr[], int size, int key)
 {
-    int n = arr.size();
-    int low = 0, high = n - 1;
+    int strt = 0, end = size - 1;
 
-    while (low <= high)
+    while (strt <= end)
     {
-        int mid = (low + high) / 2;
-        if (mid == key)
-            return mid;
-        else if (arr[mid] > key)
+        int mid = (strt + end) / 2;
+        if (key < arr[mid])
         {
-            high = mid - 1;
+            end = mid - 1;
+        }
+        else if (key == arr[mid])
+        {
+            return mid;
         }
         else
         {
-            low = mid + 1;
+            strt = mid + 1;
         }
     }
     return -1;
 }
 
-int binarysearch_recursive(vector<int> arr, int key, int low, int high)
+int binarysearch_recursive(int arr[], int strt, int end, int key)
 {
-    if (low <= high)
+    if (strt <= end)
     {
-        int mid = (low + high) / 2;
-        if (key == mid)
-            return mid;
-        else if (arr[mid] > key)
+        int mid = (strt + end) / 2;
+        if (key < arr[mid])
         {
-            return binarysearch_recursive(arr, key, low, mid - 1);
+            return binarysearch_recursive(arr, strt, mid - 1, key);
+        }
+        else if (key == arr[mid])
+        {
+            return mid;
         }
         else
         {
-            return binarysearch_recursive(arr, key, mid + 1, high);
+            return binarysearch_recursive(arr, mid + 1, end, key);
         }
     }
     return -1;
 }
-//first index where "val is greater than or equal to key"
-int lowerbound(vector<int> arr, int key)
-{
-    int n = arr.size();
-    int low = 0, high = n - 1, result = n;
 
-    while (low <= high)
+int binarysearch_first_occurence(int arr[], int size, int key)
+{
+    int strt = 0, end = size - 1, result = -1;
+
+    while (strt <= end)
     {
-        int mid = (low + high) / 2;
-        if (arr[mid] >= key)
+        int mid = (strt + end) / 2;
+        if (key < arr[mid])
+        {
+            end = mid - 1;
+        }
+        else if (key == arr[mid])
         {
             result = mid;
-            high = mid - 1;
+            end = mid - 1;
         }
         else
         {
-            low = mid + 1;
+            strt = mid + 1;
         }
     }
     return result;
 }
 
-//first index where "val is greater than key"
-int upperbound(vector<int> arr, int key)
+int binarysearch_last_occurence(int arr[], int size, int key)
 {
-    int n = arr.size();
-    int low = 0, high = n - 1, result = n;
+    int strt = 0, end = size - 1, result = -1;
 
-    while (low <= high)
+    while (strt <= end)
     {
-        int mid = (low + high) / 2;
-        if (arr[mid] > key)
+        int mid = (strt + end) / 2;
+        if (key < arr[mid])
+        {
+            end = mid - 1;
+        }
+        else if (key == arr[mid])
         {
             result = mid;
-            high = mid - 1;
+            strt = mid + 1;
         }
         else
         {
-            low = mid + 1;
+            strt = mid + 1;
         }
     }
     return result;
 }
 
+int binarysearch_count_smaller_than_value(int arr[], int size, int key)
+{
+    int strt = 0, end = size - 1;
+    while (strt <= end)
+    {
+        int mid = (strt + end) / 2;
+        if (key < arr[mid])
+        {
+            end = mid - 1;
+        }
+        else
+        {
+            strt = mid + 1;
+        }
+    }
+    return strt;
+}
 
 int main()
 {
+    cout << "enter the number of elements :";
+    int n;
+    cin >> n;
 
-    vector<int> arr1 = {1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10};
-    int result1 = upperbound(arr1, 5);
-    int result2 = lowerbound(arr1, 5);
-    int ressu=lower_bound(arr1.begin(),arr1.end(),5)-arr1.begin();
-    cout << "index: " << ressu << endl;
+    int arr[n];
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+    int key;
+    cout << "enter the number to be searched:";
+    cin >> key;
+    int result = binarysearch(arr, n, key);
+    result++;
+
+    cout << "position: " << result << endl;
 
     return 0;
 }

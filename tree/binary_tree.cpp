@@ -21,27 +21,17 @@ functions included:
 */
 
 // Node structure
-class Node
+class node
 {
 public:
   int data;
-  Node *left, *right;
-  Node()
+  node *left;
+  node *right;
+  node(int val)
   {
-    this->data = 0;
+    data = val;
     left = NULL;
-  }
-  Node(int data)
-  {
-    this->data = data;
-    this->left = NULL;
-    this->right = NULL;
-  }
-  Node(int data, Node *left, Node *right)
-  {
-    this->data = data;
-    this->left = left;
-    this->right = right;
+    right = NULL;
   }
 };
 
@@ -50,7 +40,7 @@ it is DFS traversal
 */
 
 // preorder traversal
-void preorder(Node *temp)
+void preorder(struct node *temp)
 {
   if (temp != NULL)
   {
@@ -61,7 +51,7 @@ void preorder(Node *temp)
 }
 
 // //inorder traversal
-void inorder(Node *temp)
+void inorder(struct node *temp)
 {
 
   if (temp != NULL)
@@ -73,7 +63,7 @@ void inorder(Node *temp)
 }
 
 // postorder traversal
-void postorder(Node *temp)
+void postorder(struct node *temp)
 {
 
   if (temp != NULL)
@@ -85,7 +75,7 @@ void postorder(Node *temp)
 }
 
 // height of tree
-int height(Node *root)
+int height(node *root)
 {
   if (root == NULL)
   { // it is base case
@@ -101,7 +91,7 @@ from here BFS traversal starts
 */
 
 // level order traversal
-void levelorder(Node *root)
+void levelorder(node *root)
 { // it is also called breadth first search
   //  space complexity is O(n)
 
@@ -110,13 +100,13 @@ void levelorder(Node *root)
 
     return;
   }
-  queue<Node *> q;
+  queue<node *> q;
   q.push(root);
   q.push(NULL);
 
   while (!q.empty())
   {
-    Node *n = q.front();
+    node *n = q.front();
     q.pop();
 
     if (n != NULL)
@@ -141,7 +131,7 @@ void levelorder(Node *root)
 }
 
 // level order traversal of paerticular level
-void level_traversal(Node *root, int k)
+void level_traversal(node *root, int k)
 {
   if (root == NULL)
   {
@@ -155,29 +145,54 @@ void level_traversal(Node *root, int k)
   level_traversal(root->right, k - 1);
 }
 
-// left view
 
-void leftview_util(Node *root, int level, int *maxlevel)
-{
 
-  if (!root)
-    return;
+//left view
 
-  if (*maxlevel < level)
-  {
-    cout << root->data << " ";
-    *maxlevel = level;
-  }
-  leftview_util(root->left, level + 1, maxlevel);
-  leftview_util(root->right, level + 1, maxlevel);
+void leftview_util(node* root,int level,int* maxlevel){
+
+if(!root) return;
+
+
+if (*maxlevel<level){
+cout<<root->data<<" ";
+*maxlevel=level;
+}
+leftview_util(root->left,level+1,maxlevel);
+leftview_util(root->right,level+1,maxlevel);
+
+
 }
 
-void leftview(Node *root)
-{
 
-  int maxlevel = 0;
-  leftview_util(root, 0, &maxlevel);
+void leftview(node* root){
+
+int maxlevel=0;
+leftview_util(root,0,&maxlevel);
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 
@@ -195,23 +210,23 @@ tree taken as input
 int main()
 {
 
-  Node *root = new Node(7);
+  node *root = new node(7);
 
-  // Node value 7
-  root->left = new Node(3);
-  root->right = new Node(9);
+  // node value 7
+  root->left = new node(3);
+  root->right = new node(9);
 
-  // Node value 3
-  root->left->left = new Node(1);
-  root->left->right = new Node(5);
+  // node value 3
+  root->left->left = new node(1);
+  root->left->right = new node(5);
 
-  // Node value 9
-  root->right->left = new Node(8);
-  root->right->right = new Node(10);
+  // node value 9
+  root->right->left = new node(8);
+  root->right->right = new node(10);
 
-  // Node value 8
-  root->right->left->left = new Node(4);
-  root->right->left->right = new Node(6);
+  // node value 8
+  root->right->left->left = new node(4);
+  root->right->left->right = new node(6);
 
   cout << "preorder traversal" << endl;
   preorder(root);
@@ -228,6 +243,7 @@ int main()
   cout << "levelorder traversal" << endl;
   levelorder(root);
   cout << "\n";
+
 
   cout << "left view" << endl;
   leftview(root);
